@@ -1,0 +1,35 @@
+# Impedir que se pueda ver el listado de contenidos de un directorio
+
+Options All -Indexes
+
+
+# asegurando el archivo htaccess
+
+<Files .htaccess>
+
+order allow,deny
+
+deny from all
+
+</Files>
+
+
+# Habilitar motor de reescritura
+
+RewriteEngine On
+
+
+# Redirección sin www y con HTTPS
+
+#Por lo tanto debes configurar tu archivo .htaccess para que siempre te abra el sitio sin el www y así no presentar problemas de vínculos en los archivos CSS, Javascript e imágenes
+
+RewriteCond %{HTTP_HOST} ^www\.blogaigenius\.com [NC]
+
+RewriteRule ^(.*)$ https://blogaigenius.com/$1 [L,R=301]
+
+
+# Forzar HTTPS
+
+RewriteCond %{HTTPS} off
+
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
